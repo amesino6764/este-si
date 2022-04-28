@@ -1,0 +1,52 @@
+<div class="container">
+    <h3>Modal parcial formularios reactivos</h3>
+    <div class="callparcial">
+        <app-tarea></app-tarea>
+    </div>
+    <br>
+    <form [formGroup]="form">
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group m3">
+                    <input class="form-control" placeholder="Nombre" type="text" name="name" formControlName="name" [ngClass]="{'is-invalid': submitted && f['name'].errors }">
+                    <span *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+                        Ingrese un nombre
+                    </span>
+                </div>
+                <div class="form-group m3">
+                    <input class="form-control" placeholder="Descripcion" type="text" name="description" formControlName="description" [ngClass]="{'is-invalid': submitted && f['description'].errors }">
+                    <span *ngIf="submitted && f['description'].errors" class="invalid-feedback">
+                        Ingrese una descripcion
+                    </span>
+                </div>
+                <button class="btn btn-primary" (click)="save()">Guardar</button>
+                <button class="btn btn-warning" (click)="Clear()">Limpiar</button>
+                <button class="btn btn-warning" (click)="addArea()">Agregar area</button>
+            </div>
+            <div class="col-6">
+                <ng-container formArrayName="areas">
+                    <ng-container *ngFor="let area of areas.controls; let i=index" class="mt-3">
+                        <mat-divider></mat-divider>
+                        <div class="row" [formGroupName]="i">
+                            <div class="col-4">
+                                <div class="form-group m3">
+                                    <input class="form-control" placeholder="Nombre del area" type="text" name="name" formControlName="name">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group m3">
+                                    <input class="form-control" placeholder="Descripcion del area" type="text" name="description" formControlName="description">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group m3">
+                                    <button class="btn btn-warning" (click)="eliminArea(area)">Eliminar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>
+    </form>
+</div>

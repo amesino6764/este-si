@@ -1,0 +1,70 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Modal Tarea
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- Formulario de modal -->
+            <form [formGroup]="form">
+                <!-- cabecera -->
+                <div class="modal-header">
+                    <h3 class="modal-title">Agregar nuevo Rol</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="row px-3">
+                    <div class="col-6">
+                        <input class="form-control" placeholder="Nombre" type="text" name="nombre" formControlName="nombre">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                    </div>
+                    <div class="col-5 grid-switch">
+                        <div class="switch">
+                            <input id="cmn-toggle-4" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" formControlName="status">
+                            <label for="cmn-toggle-4"></label>
+                        </div>
+                        <p class="mb-0">Activo</p>
+                    </div>
+                </div>
+                <div class="row px-3">
+                    <div class="col-12">
+                        <h5 class="mt-3">
+                            Seleccione los modulos y menus sobre los que que se dará acceso. <br> Debe seleccionar al menos un módulo y una opcion de menú correspondiente*
+                        </h5>
+                    </div>
+                </div>
+                <div class="dropdown-divider"></div>
+                <!-- cuerpo -->
+                <div class="modal-body row">
+
+
+
+                    <ng-container formArrayName="modulos">
+                        <ng-container *ngFor="let modulo of modulos.value; let i=index" class="mt-3 ">
+                            <div class=" col-6" [formGroupName]="i">
+                                <div class="form-group m3">
+                                    <label class="title-group">{{modulo.nombre}}</label>
+                                    <div class="row" *ngFor="let me of modulo.menus; let j=index">
+                                        <!-- <input type="checkbox" [id]=""> -->
+                                        <div class="col-12">
+                                            <div class="grid-checkbox">
+                                                <input type="checkbox" [id]="'chk-' + i + '-' + j" [checked]="me.value.status.enabled" [name]="'chk-' + i + '-'+ j">
+                                                <label class="ml-2 mb-0 label-checkbox">{{me.value.nombre}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+
+
+                </div>
+            </form>
+            <!-- Fin Formulario de modal -->
+        </div>
+    </div>
+</div>
